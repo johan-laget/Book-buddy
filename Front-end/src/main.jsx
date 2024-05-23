@@ -1,4 +1,3 @@
-/* imports */
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
 import {
@@ -7,26 +6,25 @@ import {
 }
 from "react-router-dom";
 import "./global.css";
-import Home from "/src/routes/home.jsx";
+import Root from "/src/routes/Root.jsx";
 import ErrorPage from "./error-page";
+import Favoris from "./pages/Favoris.jsx"; // Assurez-vous que ce chemin est correct
 
-/* path */
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: <Root />,
     errorElement: <ErrorPage />,
-    // children:[
-    //   {path: "toto",element:<Headers/>},
-      
-
-    // ]
-  
+    children: [
+      {
+        path: "favoris",
+        element: <Favoris />,
+      },
+      // Ajoutez d'autres chemins enfants ici si nécessaire
+    ],
   },
 ]);
 
-
-/* root */
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <RouterProvider router={router} />
