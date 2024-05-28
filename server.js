@@ -2,9 +2,9 @@ const express = require("express");
 const { connect } = require("mongoose");
 const connectDB = require("./backend/config/db");
 const dotenv = require("dotenv").config();
-const routesGet = require("./backend/routes/post.routes");
+const routesGet = require("./backend/routes/get.routes");
 const routesPost = require("./backend/routes/post.routes");
-const routesEdit= require("./backend/routes/post.routes")
+const routesEdit= require("./backend/routes/put.routes")
 const port = 3000;
 
 //connexion a la DB

@@ -2,10 +2,10 @@ const User = require("../models/user.model");
 const bcrypt = require('bcrypt');
 const UserModel= require('../models/user.model')
 
-// get user
-module.exports.getUser = async (req, res) => {
-  const users = await User.find();
-  res.status(200).json(users);
+// get user by id
+module.exports.getUserById = async (req, res) => {
+  const user = await User.findById(req.params.id);
+  res.status(200).json(user);
 };
 
 // create user
@@ -52,12 +52,11 @@ module.exports.editUser = async (req, res) => {
     }
 
     // Si vous mettez à jour le mot de passe, assurez-vous de le hacher
-    if (updates.password) {
-      updates.password = await bcrypt.hash(updates.password, 10);
-    }
+      user.password = await bcrypt.hash(updates.password, 10);
+    
 
     // Mettez à jour l'utilisateur
-    const updateUser = await User.findByIdAndUpdate(userId, updates, {
+    const updateUser = await User.findByIdAndUpdate(user, updates, {
       new: true,
       runValidators: true,
     });
