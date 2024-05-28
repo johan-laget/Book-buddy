@@ -39,7 +39,7 @@ const RegisterForm = () => {
   return (
     <Card className="w-[350px]">
       <CardHeader>
-        <CardTitle>Register</CardTitle>
+        <CardTitle>Inscription</CardTitle>
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -75,7 +75,7 @@ const RegisterForm = () => {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>Mot de passe</FormLabel>
                   <FormControl>
                     <Input type="password" placeholder="Password" {...field} />
                   </FormControl>
@@ -83,13 +83,13 @@ const RegisterForm = () => {
                 </FormItem>
               )}
             />
-            <Button id="" type="submit">Register</Button>
+            <Button id="" type="submit">S'inscrire</Button>
           </form>
         </Form>
       </CardContent>
       <CardFooter className="flex justify-between">
-        <span>Already have an account? </span>
-        <Link to="/auth/loginform" className="text-blue-500 underline">Login</Link>
+        <span>Vous avez un compte ? </span>
+          <Button><Link to="/auth/loginform" className="text-white no-underline">Connexion</Link></Button>
       </CardFooter>
     </Card>
   );

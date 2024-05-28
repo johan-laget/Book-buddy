@@ -72,7 +72,7 @@ const LoginForm = () => {
       </CardContent>
       <CardFooter className="flex justify-between">
         <span>Vous n'avez pas de compte? </span>
-        <Link to="/auth/registerform" className="text-blue-500 underline">Register</Link>
+        <Button><Link to="/auth/registerform" className="text-white no-underline">Register</Link></Button>
       </CardFooter>
     </Card>
   );
