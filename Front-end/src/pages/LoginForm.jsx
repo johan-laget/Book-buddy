@@ -6,7 +6,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription }
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 
 const formSchema = z.object({
@@ -71,8 +71,8 @@ const LoginForm = () => {
         </Form>
       </CardContent>
       <CardFooter className="flex justify-between">
-        <span>Don't have an account? </span>
-        <NavLink to="/registerform" className="text-blue-500 underline">Register</NavLink>
+        <span>Vous n'avez pas de compte? </span>
+        <Link to="/auth/registerform" className="text-blue-500 underline">Register</Link>
       </CardFooter>
     </Card>
   );

@@ -7,7 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"; // Assurez-vous que ce chemin est correct
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
@@ -34,7 +34,7 @@ const Header = () => {
 
       {/* Lien de navigation à droite */}
       <nav>
-        <NavLink to="/LoginForm" className="text-xl font-irish-grover">Login</NavLink>
+        <Link to="auth/LoginForm" className="text-xl font-irish-grover">Login</Link>
       </nav>
     </header>
   );

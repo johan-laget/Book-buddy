@@ -8,7 +8,7 @@ const Root = () => {
     <div>
       <Header />
       <Outlet />
-    </div>
+    </div>  
   );
 };
 
