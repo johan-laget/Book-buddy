@@ -1,17 +1,15 @@
 // src/routes/Root.jsx
-import React from 'react';
-import { Outlet } from 'react-router-dom';
-import Header from '../layout/header.jsx'; // Assurez-vous que ce chemin est correct
+import React from "react";
+import { Outlet } from "react-router-dom";
+import Header from "../layout/header";
 
 const Root = () => {
   return (
     <div>
       <Header />
-      <main>
-        <Outlet />
-      </main>
+      <Outlet />
     </div>
   );
-}
+};
 
 export default Root;

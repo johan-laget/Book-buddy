@@ -1,3 +1,4 @@
+// src/components/Header.jsx
 import React from 'react';
 import {
   Select,
@@ -33,7 +34,7 @@ const Header = () => {
 
       {/* Lien de navigation à droite */}
       <nav>
-        <NavLink to="/favoris" className="text-xl font-irish-grover">Favoris</NavLink>
+        <NavLink to="/LoginForm" className="text-xl font-irish-grover">Login</NavLink>
       </nav>
     </header>
   );

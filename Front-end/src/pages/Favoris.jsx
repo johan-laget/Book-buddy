@@ -1,13 +1,13 @@
-// src/routes/Favoris.jsx
-import React from 'react';
+// src/pages/Favorites.jsx
+import React from "react";
 
 const Favoris = () => {
   return (
     <div>
-      <h2>Favoris</h2>
-      <p>Voici vos favoris.</p>
+      <h1>Vos Favoris</h1>
+      {/* Affichage des livres favoris */}
     </div>
   );
-}
+};
 
 export default Favoris;
