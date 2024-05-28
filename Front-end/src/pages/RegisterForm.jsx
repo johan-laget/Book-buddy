@@ -1,13 +1,24 @@
-import React from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { NavLink } from 'react-router-dom';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { NavLink } from "react-router-dom";
+import { z } from "zod";
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -31,9 +42,31 @@ const RegisterForm = () => {
     },
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
-    // Handle form submission
+    // Logique d'envoi des données au backend
+    try {
+      const response = await fetch("http://localhost:3000/post", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log("User registered:", result);
+        alert("User registered successfully!");
+      } else {
+        const error = await response.json();
+        console.error("Error:", error);
+        alert("Failed to register user: " + error.message);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("An error occurred while registering the user.");
+    }
   };
 
   return (
@@ -49,9 +82,9 @@ const RegisterForm = () => {
               name="username"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Pseudo</FormLabel>
+                  <FormLabel>Username</FormLabel>
                   <FormControl>
-                    <Input type="text" placeholder="Pseudo" {...field} />
+                    <Input type="text" placeholder="Username" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -83,13 +116,15 @@ const RegisterForm = () => {
                 </FormItem>
               )}
             />
-            <Button id="" type="submit">Register</Button>
+            <Button type="submit">Register</Button>
           </form>
         </Form>
       </CardContent>
       <CardFooter className="flex justify-between">
-        <span>Already have an account? </span>
-        <NavLink to="/loginform" className="text-blue-500 underline">Login</NavLink>
+        <span>Already have an account?</span>
+        <NavLink to="/loginform" className="text-blue-500 underline">
+          Login
+        </NavLink>
       </CardFooter>
     </Card>
   );
