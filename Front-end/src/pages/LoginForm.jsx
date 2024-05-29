@@ -53,7 +53,14 @@ const LoginForm = () => {
       if (response.ok) {
         const result = await response.json();
         console.log("User logged in:", result);
-        alert("Connexion réussie!");
+
+        if (result.token) {
+          alert("Connexion réussie!");
+          localStorage.setItem("token", result.token);
+        } else {
+          alert("Token non reçu");
+        }
+
         // Rediriger l'utilisateur ou enregistrer son état de connexion
       } else {
         const error = await response.json();
