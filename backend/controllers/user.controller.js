@@ -1,6 +1,7 @@
 const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
 const UserModel = require("../models/user.model");
+const jwt= require('jsonwebtoken')
 
 // get user by id
 module.exports.getUserById = async (req, res) => {
@@ -29,7 +30,7 @@ module.exports.createUser = async (req, res) => {
 // edit user
 module.exports.editPassword = async (req, res) => {
   try {
-    const userId = req.params.id;
+    const userId = req.user;
     const updates = req.body;
 
     // Vérifiez si l'utilisateur existe
@@ -69,9 +70,9 @@ module.exports.loginUser = async (req, res) => {
     if (!isMatch) {
       return res.status(400).json({ message: "Mot de passe incorrect" });
     }
-
+    const token = jwt.sign({_id : user._id},"hugoSecret")
     // Connexion réussie
-    res.status(200).json({ message: "Connexion réussie", user });
+    res.status(200).send(token);
   } catch (error) {
     res.status(500).json({ message: "Erreur du serveur", error });
   }
