@@ -1,13 +1,24 @@
-import React from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { NavLink } from 'react-router-dom';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { NavLink } from "react-router-dom";
+import { z } from "zod";
 
 const formSchema = z.object({
   email: z.string().email({
@@ -27,16 +38,39 @@ const LoginForm = () => {
     },
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
-    // Handle form submission
+    // Logique d'envoi des données au backend pour la connexion
+    try {
+      const response = await fetch("http://localhost:3000/post/connexion", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log("User logged in:", result);
+        alert("Connexion réussie!");
+        // Rediriger l'utilisateur ou enregistrer son état de connexion
+      } else {
+        const error = await response.json();
+        console.error("Error:", error);
+        alert("Erreur de connexion: " + error.message);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("An error occurred while logging in.");
+    }
   };
 
   return (
     <Card className="w-[350px]">
       <CardHeader>
         <CardTitle>Login</CardTitle>
-        </CardHeader>
+      </CardHeader>
       <CardContent>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -66,13 +100,15 @@ const LoginForm = () => {
                 </FormItem>
               )}
             />
-            <Button id="" type="submit">Login</Button>
+            <Button type="submit">Login</Button>
           </form>
         </Form>
       </CardContent>
       <CardFooter className="flex justify-between">
         <span>Don't have an account? </span>
-        <NavLink to="/registerform" className="text-blue-500 underline">Register</NavLink>
+        <NavLink to="/registerform" className="text-blue-500 underline">
+          Register
+        </NavLink>
       </CardFooter>
     </Card>
   );

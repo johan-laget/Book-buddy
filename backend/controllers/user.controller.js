@@ -1,6 +1,6 @@
 const User = require("../models/user.model");
-const bcrypt = require('bcrypt');
-const UserModel= require('../models/user.model')
+const bcrypt = require("bcrypt");
+const UserModel = require("../models/user.model");
 
 // get user by id
 module.exports.getUserById = async (req, res) => {
@@ -26,21 +26,8 @@ module.exports.createUser = async (req, res) => {
   }
 };
 
-//add a user
-module.exports.setUser = async (req, res) => {
-  if (!req.body.username) {
-    res.status(400).json({ message: "Merci d'ajouter un nom" });
-  }
-  const user = await UserModel.create({
-    username: req.body.username,
-    email: req.body.email,
-    password: req.body.password,
-  });
-  res.status(200).json(user);
-};
-
 // edit user
-module.exports.editUser = async (req, res) => {
+module.exports.editPassword = async (req, res) => {
   try {
     const userId = req.params.id;
     const updates = req.body;
@@ -52,8 +39,7 @@ module.exports.editUser = async (req, res) => {
     }
 
     // Si vous mettez à jour le mot de passe, assurez-vous de le hacher
-      user.password = await bcrypt.hash(updates.password, 10);
-    
+    user.password = await bcrypt.hash(updates.password, 10);
 
     // Mettez à jour l'utilisateur
     const updateUser = await User.findByIdAndUpdate(user, updates, {
@@ -63,6 +49,30 @@ module.exports.editUser = async (req, res) => {
 
     res.status(200).json(updateUser);
   } catch (error) {
-    res.status(500).json({ message: 'Erreur du serveur', error });
+    res.status(500).json({ message: "Erreur du serveur", error });
+  }
+};
+
+//connexion user
+
+module.exports.loginUser = async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    // Vérifiez si l'utilisateur existe
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ message: "Utilisateur non trouvé" });
+    }
+
+    // Vérifiez si le mot de passe est correct
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: "Mot de passe incorrect" });
+    }
+
+    // Connexion réussie
+    res.status(200).json({ message: "Connexion réussie", user });
+  } catch (error) {
+    res.status(500).json({ message: "Erreur du serveur", error });
   }
 };

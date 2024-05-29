@@ -4,9 +4,10 @@ const connectDB = require("./backend/config/db");
 const dotenv = require("dotenv").config();
 const routesGet = require("./backend/routes/get.routes");
 const routesPost = require("./backend/routes/post.routes");
-const routesEdit= require("./backend/routes/put.routes")
+const routesEdit = require("./backend/routes/put.routes");
+const loginRoutes = require("./backend/routes/post.routes");
 const port = 3000;
-const cors = require('cors'); // Ajout de l'importation cors
+const cors = require("cors"); // Ajout de l'importation cors
 
 //connexion a la DB
 connectDB();
@@ -22,6 +23,7 @@ app.use(cors()); // Utilisation du middleware CORS
 
 app.use("/get", routesGet);
 app.use("/post", routesPost);
+app.use("/post", loginRoutes);
 app.use("/put", routesEdit);
 
 // Lancer le serveur
