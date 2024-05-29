@@ -46,7 +46,7 @@ const RegisterForm = () => {
     console.log(data);
     // Logique d'envoi des données au backend
     try {
-      const response = await fetch("http://localhost:3000/post", {
+      const response = await fetch("http://localhost:3000/post/addUser", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
