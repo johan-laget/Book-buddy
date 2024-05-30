@@ -4,7 +4,7 @@ const bookModel = require("../models/bookModel");
 module.exports.addBook = async (req, res) => {
   try {
       // res.send(body)
-      const { title, author, etat, pagesMax, readedPages, categories } = req.body;
+      const { title, author, etat, pagesMax, readedPages, categories, isFavorite } = req.body;
 
       // Vérifiez si les champs obligatoires sont présents
       if (!title) {
@@ -36,7 +36,9 @@ module.exports.addBook = async (req, res) => {
           state: etat,
           maxPages,
           readedPages:Number(readedPages),
-          categories
+          categories,
+          isFavorite:Boolean(isFavorite),
+          // userId: req.user._id
       });
 
       await book.save();
@@ -74,6 +76,15 @@ module.exports.getBookByFilter = async (req, res) => {
   }
 };
 
+module.exports.getBookByFavorite = async (req, res) => {
+  try {
+    const books = await bookModel.find({isFavorite : true});
+    res.status(200).json(books);
+  } catch (e) {
+    res.status(400).send(e);
+  }
+};
+
 module.exports.putStateBook = async (req, res) => {
   try {
     const updateStateBook = await bookModel.findByIdAndUpdate(req.params.id, {state: req.query.state}, {
@@ -92,6 +103,28 @@ module.exports.updatePages = async (req, res) => {
       new:true
     });
     res.status(200).json(updateStateBook);
+  } catch (e) {
+    res.status(400).send(e);
+  }
+};
+
+module.exports.changeFavoriteToTrue = async (req, res) => {
+  try {
+    const books = await bookModel.findByIdAndUpdate(req.params.id, {isFavorite: true }, {
+      new:true
+    });
+    res.status(200).json(books);
+  } catch (e) {
+    res.status(400).send(e);
+  }
+};
+
+module.exports.changeFavoriteToFalse = async (req, res) => {
+  try {
+    const books = await bookModel.findByIdAndUpdate(req.params.id, {isFavorite: false }, {
+      new:true
+    });
+    res.status(200).json(books);
   } catch (e) {
     res.status(400).send(e);
   }
