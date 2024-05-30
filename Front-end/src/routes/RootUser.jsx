@@ -1,10 +1,18 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import Header from "../layout/header.jsx"
 
 const RootUser = () => {
   return (
     <div> 
-      <Outlet />
+      <Header />
+      <div>
+        <h1>Mes livres:</h1>
+        <h1>En cours de lecture:</h1>
+        <h1>A commencer </h1>
+        
+
+      </div>
+
     </div>  
   );
 };
