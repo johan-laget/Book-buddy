@@ -7,7 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"; // Assurez-vous que ce chemin est correct
-import { NavLink } from 'react-router-dom';
+import BurgerMenu from './BurgerMenu';
 
 const Header = () => {
   return (
@@ -27,14 +27,14 @@ const Header = () => {
         </Select>
         <input
           type="text"
-          className="flex-grow p-2 rounded-l-md border-none outline-none"
+          className="flex-grow text-black p-2 rounded-l-md border-none outline-none"
           placeholder="Rechercher..."
         />
       </div>
 
       {/* Lien de navigation à droite */}
       <nav>
-        <NavLink to="/LoginForm" className="text-xl font-irish-grover">Login</NavLink>
+      <BurgerMenu />
       </nav>
     </header>
   );

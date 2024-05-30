@@ -1,0 +1,63 @@
+const onSubmit = async (data) => {
+    console.log(data);
+    // Logique d'envoi des données au backend pour la connexion
+    try {
+      const response = await fetch("http://localhost:3000/post/connexion", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log("User logged in:", result);
+
+        if (result.token) {
+          alert("Connexion réussie!");
+          localStorage.setItem("token", result.token);
+        } else {
+          alert("Token non reçu");
+        }
+
+        // Rediriger l'utilisateur ou enregistrer son état de connexion
+      } else {
+        const error = await response.json();
+        console.error("Error:", error);
+        alert("Erreur de connexion: " + error.message);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("An error occurred while logging in.");
+    }
+  };
+
+
+
+   const onSubmit = async (data) => {
+    console.log(data);
+    // Logique d'envoi des données au backend
+    try {
+      const response = await fetch("http://localhost:3000/post/addUser", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log("User registered:", result);
+        alert("User registered successfully!");
+      } else {
+        const error = await response.json();
+        console.error("Error:", error);
+        alert("Failed to register user: " + error.message);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("An error occurred while registering the user.");
+    }
+  };

@@ -2,26 +2,52 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "../src/routes/Root";
-import LoginForm from "./pages/LoginForm"; // Correction de l'import pour correspondre au nom du fichier
-import RegisterForm from "./pages/RegisterForm"; // Correction de l'import pour correspondre au nom du fichier
+import RootAuth from "../src/routes/RootAuth";
+import RootUser from "../src/routes/RootUser";
+import LoginForm from "./pages/LoginForm";
+import Favoris from "./pages/Favoris";
+import Profil from './pages/Profil'
+import RegisterForm from "./pages/RegisterForm";
 import ErrorPage from "../src/routes/Errorpage";
-import "../src/global.css"; // Utilisation du chemin absolu
+import "../src/global.css";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
     errorElement: <ErrorPage />,
+
+    
   },
   {
-    path: "/loginform",
-    element: <LoginForm />, // Utilisation du composant LoginForm
+    path: "/auth",
+    element: <RootAuth/>,
     errorElement: <ErrorPage />,
+    children: [
+      {
+      path: "loginform",
+      element: <LoginForm />, 
+      },
+      {
+        path: "registerform",
+        element: <RegisterForm />,
+  }
+      ]
   },
   {
-    path: "/registerform",
-    element: <RegisterForm />, // Utilisation du composant RegisterForm
-    errorElement: <ErrorPage />,
+    path: "/user",
+    element: <RootUser/>,
+    children: [
+      {
+      path: "profil",
+      element: <Profil />, 
+      },
+      {
+      path: "favoris",
+      element: <Favoris />,
+      }
+      ]
+
   },
 ]);
 

@@ -17,8 +17,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { NavLink } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { z } from "zod";
+
+// Import de votre image
+import bgImage from "../assets/bgbiblio.jpg";
 
 const formSchema = z.object({
   email: z.string().email({
@@ -37,7 +40,7 @@ const LoginForm = () => {
       password: "",
     },
   });
-
+  const navigate = useNavigate();
   const onSubmit = async (data) => {
     console.log(data);
     // Logique d'envoi des données au backend pour la connexion
@@ -57,6 +60,7 @@ const LoginForm = () => {
         if (result.token) {
           alert("Connexion réussie!");
           localStorage.setItem("token", result.token);
+          navigate("/user");
         } else {
           alert("Token non reçu");
         }
@@ -74,50 +78,63 @@ const LoginForm = () => {
   };
 
   return (
-    <Card className="w-[350px]">
-      <CardHeader>
-        <CardTitle>Login</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input type="email" placeholder="Email" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input type="password" placeholder="Password" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button type="submit">Login</Button>
-          </form>
-        </Form>
-      </CardContent>
-      <CardFooter className="flex justify-between">
-        <span>Dont have an account? </span>
-        <NavLink to="/registerform" className="text-blue-500 underline">
-          Register
-        </NavLink>
-      </CardFooter>
-    </Card>
+    <div
+      className="flex items-center justify-center h-screen bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: `url(${bgImage})` }}
+    >
+      <Card className="w-[350px]">
+        <CardHeader>
+          <CardTitle>Login</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input type="email" placeholder="Email" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="password"
+                        placeholder="Password"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button id="" type="submit">
+                Login
+              </Button>
+            </form>
+          </Form>
+        </CardContent>
+        <CardFooter className="flex justify-between">
+          <span>Vous n'avez pas de compte? </span>
+          <Button>
+            <Link to="/auth/registerform" className="text-white no-underline">
+              Register
+            </Link>
+          </Button>
+        </CardFooter>
+      </Card>
+    </div>
   );
 };
 
