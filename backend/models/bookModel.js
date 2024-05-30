@@ -1,4 +1,5 @@
 const mongoose = require ("mongoose");
+const { boolean } = require("webidl-conversions");
 
 
 const bookSchema = mongoose.Schema( //Je crée le shema bookSchema
@@ -25,6 +26,16 @@ const bookSchema = mongoose.Schema( //Je crée le shema bookSchema
         Categories: {
             type: [String]
         },
+
+        isFavorite: {
+            type: Boolean,
+            default: false
+        },
+
+        // userId : {
+        //     type: String, 
+        //     required: true
+        // }
     },
     {
         timestamps: true
