@@ -112,7 +112,7 @@ const LoginForm = () => {
         </Form>
       </CardContent>
       <CardFooter className="flex justify-between">
-        <span>Don't have an account? </span>
+        <span>Dont have an account? </span>
         <NavLink to="/registerform" className="text-blue-500 underline">
           Register
         </NavLink>
