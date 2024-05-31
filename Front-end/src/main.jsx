@@ -9,7 +9,9 @@ import Favoris from "./pages/Favoris";
 import Profil from './pages/Profil'
 import RegisterForm from "./pages/RegisterForm";
 import ErrorPage from "../src/routes/Errorpage";
+import HomeUser from "./pages/HomeUser";
 import "../src/global.css";
+import { AuthRequired } from "./lib/auth";
 
 const router = createBrowserRouter([
   {
@@ -37,7 +39,12 @@ const router = createBrowserRouter([
   {
     path: "/user",
     element: <RootUser/>,
+    // loader: <AuthRequired/>,
     children: [
+      {
+        path: "/user",
+        element: <HomeUser />, 
+        },
       {
       path: "profil",
       element: <Profil />, 
