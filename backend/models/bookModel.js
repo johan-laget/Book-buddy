@@ -1,5 +1,5 @@
 const mongoose = require ("mongoose");
-
+require("./user.model")
 
 const bookSchema = mongoose.Schema( //Je crée le shema bookSchema
     {
@@ -25,11 +25,17 @@ const bookSchema = mongoose.Schema( //Je crée le shema bookSchema
         Categories: {
             type: [String]
         },
+        userId: {
+            type: mongoose.Schema.Types.ObjectId,
+            autopopulate: true,
+            ref: "User",
+            required: true
+        }
     },
     {
         timestamps: true
     }
 )
-
+bookSchema.plugin(require('mongoose-autopopulate')); 
 // Exporte le modèle de données pour le livre (book) en utilisant le schéma bookSchema
 module.exports = mongoose.model('book', bookSchema);

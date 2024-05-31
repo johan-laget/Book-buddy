@@ -36,7 +36,8 @@ module.exports.addBook = async (req, res) => {
           state: etat,
           maxPages,
           readedPages:Number(readedPages),
-          categories
+          categories,
+          userId: req.user._id
       });
 
       await book.save();
