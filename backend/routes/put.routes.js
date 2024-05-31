@@ -5,7 +5,7 @@ const { putStateBook, updatePages } = require("../controllers/book.controller");
 const router = express.Router();
 
 //Routes user
-router.put("/user",authMiddleware ,editPassword);
+router.put("/user/:id",authMiddleware ,editPassword);
 
 //Routes book
 router.put("/stateBook/:id", putStateBook);
