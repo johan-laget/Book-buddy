@@ -15,28 +15,32 @@ const Profil = () => {
   };
 
   return (
-    <div>
-      <h1>Profil</h1>
-      <p>Email:</p>
-      <input
-        type="text"
-        disabled
-        className="w-full bg-gray-200 rounded-md py-2 px-3 mb-4"
-        placeholder="Email"
-      />
-      <p>Pseudo:</p>
-      <input
-        type="text"
-        disabled
-        className="w-full bg-gray-200 rounded-md py-2 px-3 mb-4"
-        placeholder="Pseudo"
-      />
-      <Button onClick={openModal}>Changer de mot de passe</Button>
-      {modalOpen && (
-        <ModalChangePassword closeModal={closeModal} />
-      )}
-      <div className="">
-        <h1 className="text-3xl mb-8">Mes Livres:</h1>
+    <div className="flex flex-col items-center p-6">
+      <h1 className="text-4xl mb-6">Profil</h1>
+      <div className="grid justify-center max-w-lg mb-8">
+        <p className="mb-2">Email:</p>
+        <input
+          type="text"
+          disabled
+          className=" bg-gray-200 rounded-md py-2 px-3 mb-4"
+          placeholder="Email"
+        />
+        <p className="mb-2">Pseudo:</p>
+        <input
+          type="text"
+          disabled
+          className=" bg-gray-200 rounded-md py-2 px-3 mb-4"
+          placeholder="Pseudo"
+        />
+        <div className="flex justify-center mb-6">
+          <Button onClick={openModal}>Changer de mot de passe</Button>
+        </div>
+        {modalOpen && (
+          <ModalChangePassword closeModal={closeModal} />
+        )}
+      </div>
+      <div className="w-full">
+        <h1 className="text-3xl mb-8 text-center">Mes Livres:</h1>
         <CarouselSpacing />
       </div>
     </div>
