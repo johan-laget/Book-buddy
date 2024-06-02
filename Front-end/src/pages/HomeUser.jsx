@@ -35,7 +35,7 @@ const HomeUser = () => {
       <h1 className="text-3xl font-bold underline mt-8 mb-4">
         Ajouter un livre
       </h1>
-      <Button className="w-36 h-48 bg-gray-700" onClick={handleAddButtonClick}>
+      <Button className="w-[130px] h-[200px] bg-gray-700" onClick={handleAddButtonClick}>
         <X className="text-black w-12 h-24" />
       </Button>
       
