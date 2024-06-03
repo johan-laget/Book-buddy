@@ -1,6 +1,4 @@
-// src/layout/CarouselSpacing.jsx
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
@@ -11,31 +9,23 @@ import {
 } from "@/components/ui/carousel";
 import { Heart } from "lucide-react";
 import { useBooks } from "../layout/BookContext";
-import CardBook from "./CardBook"; // Importer le composant CardBook
+import CardBook from "./CardBook";
 
-const CarouselSpacing = ({ books, toggleFavorite }) => {
-  const [selectedBook, setSelectedBook] = useState(null); // State pour le livre sélectionné
-  const { removeFavorite } = useBooks(); // Utiliser la fonction removeFavorite du contexte
-
-  // State local pour gérer le favori
-  const [isFavorite, setIsFavorite] = useState(false);
-
-  const handleToggleFavorite = (id) => {
-    toggleFavorite(id); // Appeler la fonction toggleFavorite avec l'ID du livre
-    setIsFavorite(!isFavorite); // Mettre à jour l'état local du favori
-  };
+const CarouselSpacing = ({ books }) => {
+  const { toggleFavorite } = useBooks(); // Utiliser la fonction toggleFavorite du contexte
+  const [selectedBook, setSelectedBook] = useState(null);
 
   const openCardBook = (book) => {
-    setSelectedBook(book); // Mettre à jour le livre sélectionné pour afficher CardBook
+    setSelectedBook(book);
   };
 
   const closeCardBook = () => {
-    setSelectedBook(null); // Fermer CardBook en réinitialisant le livre sélectionné
+    setSelectedBook(null);
   };
 
   const handleHeartClick = (e, id) => {
-    e.stopPropagation(); // Arrêter la propagation de l'événement pour éviter d'ouvrir CardBook
-    handleToggleFavorite(id); // Appeler la fonction toggleFavorite avec l'ID du livre
+    e.stopPropagation();
+    toggleFavorite(id); // Appeler la fonction toggleFavorite avec l'ID du livre
   };
 
   return (
@@ -52,7 +42,7 @@ const CarouselSpacing = ({ books, toggleFavorite }) => {
                       className="absolute top-2 right-2 z-20"
                       onClick={(e) => handleHeartClick(e, book.id)}
                     >
-                      <Heart color={isFavorite ? "red" : "gray"} />
+                      <Heart color={book.favorite ? "red" : "gray"} /> {/* Utiliser book.favorite */}
                     </button>
                     <div
                       className="absolute inset-0 flex items-center justify-center cursor-pointer z-10"
@@ -70,7 +60,6 @@ const CarouselSpacing = ({ books, toggleFavorite }) => {
         <CarouselNext />
       </Carousel>
 
-      {/* Conditionnellement afficher CardBook */}
       {selectedBook && <CardBook book={selectedBook} onClose={closeCardBook} />}
     </div>
   );

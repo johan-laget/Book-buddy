@@ -31,7 +31,8 @@ const CardBook = ({ book, onClose }) => {
                 </div>
                 <div className="grid">
                   <p className="item-center">
-                    <strong>Titre: {title}</strong>
+                    <strong>Titre: </strong>
+                    {title}
                   </p>
 
                   <div className="">

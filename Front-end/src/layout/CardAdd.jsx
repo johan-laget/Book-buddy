@@ -25,7 +25,7 @@ const CardAdd = ({ onClose }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+  
     const dataForm = new FormData(e.target);
     const newBook = {
       id: uuidv4(),
@@ -35,9 +35,10 @@ const CardAdd = ({ onClose }) => {
       currentPage: dataForm.get("currentPage"),
       category: dataForm.get("categorie"),
       status: selectedButton,
-      nombrepage: dataForm.get("nombrepage"), // Ajouter nombrepage à newBook
+      numberOfPages: dataForm.get("nombrepage"), // Utilisation correcte de numberOfPages
+      nombrepage: dataForm.get("nombrepage"), // Assurez-vous que nombrepage est inclus ici
     };
-
+  
     addBook(newBook);
     onClose();
   };
@@ -76,11 +77,11 @@ const CardAdd = ({ onClose }) => {
               <div className="flex gap-8">
                 <div className="">
                   <Label htmlFor="nombrepage">Nombre de pages</Label>
-                  <Input id="nombrepage" name="nombrepage" placeholder="Exemple:20" />
+                  <Input id="nombrepage" name="nombrepage" placeholder="Exemple: 300" />
                 </div>
                 <div className="">
                   <Label htmlFor="currentPage">Page actuelle</Label>
-                  <Input id="currentPage" name="currentPage" placeholder="Exemple: 10" />
+                  <Input id="currentPage" name="currentPage" placeholder="Exemple: 20" />
                 </div>
               </div>
               <div className="items-center mt-4">

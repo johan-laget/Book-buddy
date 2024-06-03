@@ -1,4 +1,4 @@
-import { AlignJustify, X } from 'lucide-react';
+import { AlignJustify, LogOut, X } from 'lucide-react';
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -39,6 +39,8 @@ const BurgerMenu = () => {
             <li className="mb-4"><Link to="/user">Acceuil</Link></li>
             <li className="mb-4"><Link to="/user/profil">Profil</Link></li>
             <li className="mb-4"><Link to="/user/favoris">Favoris</Link></li>
+
+            <LogOut />
           </ul>
         </div>
       </div>
