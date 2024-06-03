@@ -1,11 +1,11 @@
 const express = require("express");
-const { createUser, getUserById,} = require("../controllers/user.controller");
+const { getUserById,} = require("../controllers/user.controller");
 const { getBook, getBookById, getBookByFilter } = require("../controllers/book.controller");
 const router = express.Router();
 const authMiddleware= require("../middleware/auth.middleware")
 
 
-router.get("/user/:id", getUserById, createUser);
+router.get("/user/:id", getUserById );
 
 //Router book
 router.get("/book", getBook);  //==> http://localhost:3000/get/book

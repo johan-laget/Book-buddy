@@ -6,6 +6,7 @@ const secretKey = "hugoSecret";
 // get user by id
 module.exports.getUserById = async (req, res) => {
   const user = await User.findById(req.params.id);
+  console.log(user);
   res.status(200).json(user);
 };
 
@@ -66,18 +67,15 @@ module.exports.loginUser = async (req, res) => {
       return res.status(400).json({ message: "Utilisateur non trouvé" });
     }
 
-    // Vérifiez si le mot de passe est correct
+    //Vérifiez si le mot de passe est correct
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({ message: "Mot de passe incorrect" });
     }
+
     const token = jwt.sign({ _id: user._id, email: user.email }, secretKey);
-    // Connexion réussie
-    res.json({
-      token,
-      userId: user._id,
-    });
-    res.status(200).json({ message: "Connexion réussie", token });
+    const userId = user._id;
+    res.status(200).json({ message: "Connexion réussie", token, userId });
   } catch (error) {
     res.status(500).json({ message: "Erreur du serveur", error });
   }
