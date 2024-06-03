@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button';
 import { AlignJustify, LogOut, X } from 'lucide-react';
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
@@ -23,6 +24,15 @@ const BurgerMenu = () => {
     setIsOpen(!isOpen);
   };
 
+  const handleLogout = () => {
+    // Code pour supprimer le token de l'utilisateur et effectuer la déconnexion
+    // Par exemple, vous pouvez utiliser localStorage pour stocker le token
+    localStorage.removeItem('token');
+    // Après avoir supprimé le token, redirigez l'utilisateur vers la page de connexion
+    // Remplacez "/login" par le chemin de votre page de connexion
+    window.location.href = "/login";
+  };
+
   return (
     <div className="relative">
       {/* Bouton Burger */}
@@ -40,7 +50,7 @@ const BurgerMenu = () => {
             <li className="mb-4"><Link to="/user/profil">Profil</Link></li>
             <li className="mb-4"><Link to="/user/favoris">Favoris</Link></li>
 
-            <LogOut />
+            <Button onClick={handleLogout}><LogOut /> Déconnexion</Button>
           </ul>
         </div>
       </div>
