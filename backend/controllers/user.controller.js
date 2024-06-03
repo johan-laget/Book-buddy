@@ -1,8 +1,8 @@
 const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
 const UserModel = require("../models/user.model");
-const jwt= require('jsonwebtoken')
-const secretKey= "hugoSecret"
+const jwt = require("jsonwebtoken");
+const secretKey = "hugoSecret";
 // get user by id
 module.exports.getUserById = async (req, res) => {
   const user = await User.findById(req.params.id);
@@ -40,13 +40,14 @@ module.exports.editPassword = async (req, res) => {
     }
 
     // Si vous mettez à jour le mot de passe, assurez-vous de le hacher
-    user.password = await bcrypt.hash(updates.password, 10);
+    const password = await bcrypt.hash(updates.newPassword, 10);
 
     // Mettez à jour l'utilisateur
-    const updateUser = await User.findByIdAndUpdate(user, updates, {
-      new: true,
-      runValidators: true,
-    });
+    const updateUser = await User.findByIdAndUpdate(
+      user._id,
+      { password },
+      { new: true }
+    );
 
     res.status(200).json(updateUser);
   } catch (error) {
@@ -70,9 +71,13 @@ module.exports.loginUser = async (req, res) => {
     if (!isMatch) {
       return res.status(400).json({ message: "Mot de passe incorrect" });
     }
-    const token = jwt.sign({_id : user._id, email: user.email}, secretKey)
+    const token = jwt.sign({ _id: user._id, email: user.email }, secretKey);
     // Connexion réussie
-    res.status(200).json({message: 'Connexion réussie', token})
+    res.json({
+      token,
+      userId: user._id,
+    });
+    res.status(200).json({ message: "Connexion réussie", token });
   } catch (error) {
     res.status(500).json({ message: "Erreur du serveur", error });
   }

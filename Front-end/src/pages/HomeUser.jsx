@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 import CardAdd from "@/layout/CardAdd"; // Assurez-vous de l'importer correctement depuis l'endroit où il est défini.
 
-const Favoris = () => {
+const HomeUser = () => {
   const [isCardOpen, setIsCardOpen] = useState(false);
 
   const handleAddButtonClick = () => {
@@ -18,12 +18,22 @@ const Favoris = () => {
   return (
     <div className="container mx-auto my-8 px-4">
       <h1 className="text-3xl font-bold underline mb-4">
-        Vos Favoris
+        Mes Livres:
       </h1>
-      <CarouselSpacing />
+      <CarouselSpacing/>
       
       <h1 className="text-3xl font-bold underline mt-8 mb-4">
-        Télécharger un livre
+        En cours de lecture
+      </h1>
+      <CarouselSpacing/>
+      
+      <h1 className="text-3xl font-bold underline mt-8 mb-4">
+        A commencer
+      </h1>
+      <CarouselSpacing/>
+      
+      <h1 className="text-3xl font-bold underline mt-8 mb-4">
+        Ajouter un livre
       </h1>
       <Button className="w-[130px] h-[200px] bg-gray-700" onClick={handleAddButtonClick}>
         <X className="text-black w-12 h-24" />
@@ -34,4 +44,4 @@ const Favoris = () => {
   );
 };
 
-export default Favoris;
+export default HomeUser;
