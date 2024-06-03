@@ -1,10 +1,12 @@
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import CarouselSpacing from "@/layout/CarouselSpacing";
-import React, { useState } from "react";
 import ModalChangePassword from "../layout/ModalChangePassword";
+import { useBooks } from "../layout/BookContext"; // Assurez-vous d'importer correctement le hook useBooks
 
 const Profil = () => {
   const [modalOpen, setModalOpen] = useState(false);
+  const { books } = useBooks(); // Assurez-vous d'obtenir les livres depuis le contexte approprié
 
   const openModal = () => {
     setModalOpen(true);
@@ -35,13 +37,15 @@ const Profil = () => {
         <div className="flex justify-center mb-6">
           <Button onClick={openModal}>Changer de mot de passe</Button>
         </div>
-        {modalOpen && (
-          <ModalChangePassword closeModal={closeModal} />
-        )}
+        {modalOpen && <ModalChangePassword closeModal={closeModal} />}
       </div>
       <div className="w-full">
         <h1 className="text-3xl mb-8 text-center">Mes Livres:</h1>
-        <CarouselSpacing />
+        {books && books.length > 0 ? (
+          <CarouselSpacing books={books} />
+        ) : (
+          <p>Aucun livre à afficher pour le moment.</p>
+        )}
       </div>
     </div>
   );

@@ -60,6 +60,7 @@ const LoginForm = () => {
         if (result.token) {
           alert("Connexion réussie!");
           localStorage.setItem("token", result.token);
+          localStorage.setItem("userId", result.userId);
           navigate("/user");
         } else {
           alert("Token non reçu");
